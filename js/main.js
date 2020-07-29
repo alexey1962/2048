@@ -1,3 +1,3 @@
 
 
-new Gamepad(document.body, 4)
+new Game(document.body, 4)
