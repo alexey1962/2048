@@ -10,7 +10,7 @@ class Cell {
 
 
         if(Math.random() > 0.8) {
-            this.value = Math.random() > 0.5 ? 4 : 2; 
+            this.spawn;
         }
 
         this.element.onclick = this.merge.bind(this);
@@ -32,5 +32,9 @@ class Cell {
 
     merge() {
         this.value *= 2;
+    }
+
+    spawn() {
+        this.value = Math.random() > 0.5 ? 4 : 2;
     }
 }
