@@ -30,8 +30,8 @@ class Cell {
         this.value = '';
     }
 
-    merge() {
-        this.value *= 2;
+    merge(cell) {
+        this.value *= cell.value;
     }
 
     spawn() {

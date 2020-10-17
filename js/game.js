@@ -1,5 +1,7 @@
 class Game {
     constructor(parentElement, size = 4) {
+        this.size = size;
+
         let gameFieldElement = createAndAppend({
             className: 'game',
             parentElement
@@ -15,7 +17,7 @@ class Game {
         headerElement.innerHTML = 'Raiting: ' + this.rating;
 
 
-        let FieldElement = createAndAppend({
+        let fieldElement = createAndAppend({
             className: 'field',
             parentElement: gameFieldElement
         });
@@ -25,7 +27,7 @@ class Game {
         for (let i = 0; i < size; i++) {
             this.field[i] = [];
             for (let k = 0; k < size; k++) {
-                this.field[i][k] = new Cell(FieldElement);
+                this.field[i][k] = new Cell(fieldElement);
             }
         }
 
@@ -56,10 +58,26 @@ class Game {
     }
 
      moveRight() {
-         for (let i = 0; i < this.FieldElement.length; i++) {
-            for (let k = this.FieldElement[i].length - 2; k >= 0; k++) {
-
+         let hasMoved = false;
+         for (let i = 0; i < this.field.length; i++) {
+            for (let k = this.field[i].length - 2; k >= 0; k++) {
+                
+                let nextCellKey = k + 1;
+                let nextCell = this.field[i][nextCellKey]
+                while(nextCell.value == 0 && nextCellKey < this.size) {
+                    if(nextCell.value || (nextCellKey == (this.size - 1))) {
+                        this.field[i][nextCellKey].merge(this.field[i][k]); 
+                        hasMoved = true;
+                        break;
+                    } 
+                     nextCellKey = k + 1;
+                     nextCell = this.field[i][nextCellKey]
+                }
              }
+         }
+
+         if(hasMoved) {
+             this.spawnUnit();
          }
      }
 }
