@@ -32,7 +32,6 @@ class Game {
         }
 
         // this.FieldElement.onkeyup = function(e) {
-
         // };
 
         console.log(this.field);
@@ -60,17 +59,20 @@ class Game {
      moveRight() {
          let hasMoved = false;
          for (let i = 0; i < this.field.length; i++) {
-            for (let k = this.field[i].length - 2; k >= 0; k++) {
+            for (let k = this.field[i].length - 2; k >= 0; k--) {
+                if(this.field[i].isEmpty) {
+                    continue;
+                }
                 
                 let nextCellKey = k + 1;
-                let nextCell = this.field[i][nextCellKey]
-                while(nextCell.value == 0 && nextCellKey < this.size) {
-                    if(nextCell.value || (nextCellKey == (this.size - 1))) {
+                while(nextCellKey < this.size) {
+                    let nextCell = this.field[i][nextCellKey];
+                    if (!nextCell.isEmpty || (nextCellKey == (this.size - 1))) {
                         this.field[i][nextCellKey].merge(this.field[i][k]); 
                         hasMoved = true;
                         break;
                     } 
-                     nextCellKey = k + 1;
+                     nextCellKey++;
                      nextCell = this.field[i][nextCellKey]
                 }
              }

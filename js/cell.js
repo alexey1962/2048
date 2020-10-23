@@ -3,14 +3,14 @@
 class Cell {
     constructor(fieldElement) {
         this.element = createAndAppend({
-           className: 'cell',
+            className: 'cell',
             parentElement: fieldElement
         });
         
 
 
         if(Math.random() > 0.8) {
-            this.spawn;
+            this.spawn();
         }
 
         this.element.onclick = this.merge.bind(this);
@@ -32,9 +32,14 @@ class Cell {
 
     merge(cell) {
         this.value *= cell.value;
+        cell.clear();
     }
 
     spawn() {
         this.value = Math.random() > 0.5 ? 4 : 2;
+    }
+
+    get isEmpty() {
+        return this.value == 0;
     }
 }
