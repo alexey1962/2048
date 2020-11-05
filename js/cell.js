@@ -31,8 +31,12 @@ class Cell {
     }
 
     merge(cell) {
-        this.value *= cell.value;
+        this.value += cell.value;
         cell.clear();
+    }
+
+    isSameTo(cell) {
+        return this.value == cell.value;
     }
 
     spawn() {

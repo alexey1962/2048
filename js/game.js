@@ -60,18 +60,23 @@ class Game {
          let hasMoved = false;
          for (let i = 0; i < this.field.length; i++) {
             for (let k = this.field[i].length - 2; k >= 0; k--) {
-                if(this.field[i].isEmpty) {
+                let currentCell = this.field[i][k];
+                if(currentCell.isEmpty) {
                     continue;
                 }
                 
                 let nextCellKey = k + 1;
                 while(nextCellKey < this.size) {
                     let nextCell = this.field[i][nextCellKey];
-                    if (!nextCell.isEmpty || (nextCellKey == (this.size - 1))) {
-                        this.field[i][nextCellKey].merge(this.field[i][k]); 
-                        hasMoved = true;
+                    if (!nextCell.isEmpty || isLastKey(nextCellKey)) {
+                        if((nextCell.isEmpty && isLastKey(nextCellKey))
+                        || nextCell.isSameTo(currentCell)
+                        || (!nextCell.isSameTo(currentCell) && nextCellKey - 1 != k)) {
+                            this.field[i][nextCellKey].merge(currentCell);
+                            hasMoved = true;
+                        }
                         break;
-                    } 
+                    }
                      nextCellKey++;
                      nextCell = this.field[i][nextCellKey]
                 }
@@ -82,4 +87,8 @@ class Game {
              this.spawnUnit();
          }
      }
+}
+
+let isLastKey = function(key) {
+    return key == (this.size - 1);
 }
