@@ -56,8 +56,8 @@ class Game {
         
     }
 
-     moveRight() {
-         let hasMoved = false;
+    moveRight() {
+        let hasMoved = false;
          for (let i = 0; i < this.size; i++) {
             for (let k = this.size - 2; k >= 0; k--) {
                 let currentCell = this.field[i][k];
@@ -100,17 +100,17 @@ class Game {
          return key == 0;
      }
 
-     moveLeft() {
+    moveLeft() {
         let hasMoved = false;
         for (let i = 0; i < this.size; i++) {
-           for (let k = 1; k < this.size - 1; k++) {
+           for (let k = 1; k < this.size; k++) {
                let currentCell = this.field[i][k];
                if(currentCell.isEmpty) {
                    continue;
                }
                
                let nextCellKey = k - 1;
-               while(nextCellKey > 0) {
+               while(nextCellKey >= 0) {
                    let nextCell = this.field[i][nextCellKey];
                    if (!nextCell.isEmpty || this.isFirstKey(nextCellKey)) {
                        if((nextCell.isEmpty && this.isFirstKey(nextCellKey))
@@ -125,6 +125,42 @@ class Game {
                        break;
                    }
                     nextCellKey--;
+                    nextCell = this.field[i][nextCellKey]
+               }
+            }
+        }
+
+        if(hasMoved) {
+            this.spawnUnit();
+        }
+    }
+
+    moveDown() {
+        let hasMoved = false;
+        for (let k = 0; k < this.size; k++) {
+            for (let i = this.size - 2; i >= 0; i--) {
+               let currentCell = this.field[i][k];
+               if(currentCell.isEmpty) {
+                   continue;
+               }
+               
+               let nextCellKey = i + 1;
+               while (nextCellKey < this.size) {
+
+                   let nextCell = this.field[i][nextCellKey];
+                   if (!nextCell.isEmpty || this.isLastKey(nextCellKey)) {
+                       if((nextCell.isEmpty && this.isLastKey(nextCellKey))
+                       || nextCell.isSameTo(currentCell)) {
+                           this.field[nextCellKey][k].merge(currentCell);
+                           hasMoved = true;
+                       } else if (!nextCell.isEmpty && nextCellKey - 1 != i) {
+                           this.field[nextCellKey - 1][k].merge(currentCell);
+                           hasMoved = true;
+                       }
+
+                       break;
+                   }
+                    nextCellKey++;
                     nextCell = this.field[i][nextCellKey]
                }
             }
