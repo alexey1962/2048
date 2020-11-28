@@ -147,10 +147,10 @@ class Game {
                let nextCellKey = i + 1;
                while (nextCellKey < this.size) {
 
-                   let nextCell = this.field[i][nextCellKey];
+                   let nextCell = this.field[nextCellKey][k];
                    if (!nextCell.isEmpty || this.isLastKey(nextCellKey)) {
                        if((nextCell.isEmpty && this.isLastKey(nextCellKey))
-                       || nextCell.isSameTo(currentCell)) {
+                           || nextCell.isSameTo(currentCell)) {
                            this.field[nextCellKey][k].merge(currentCell);
                            hasMoved = true;
                        } else if (!nextCell.isEmpty && nextCellKey - 1 != i) {
@@ -161,7 +161,44 @@ class Game {
                        break;
                    }
                     nextCellKey++;
-                    nextCell = this.field[i][nextCellKey]
+                    nextCell = this.field[nextCellKey][k];
+               }
+            }
+        }
+
+        if(hasMoved) {
+            this.spawnUnit();
+        }
+    }
+
+
+    moveTop() {
+        let hasMoved = false;
+        for (let k = 0; k < this.size; k++) {
+            for (let i = 1; i < this.size; i++) {
+               let currentCell = this.field[i][k];
+               if(currentCell.isEmpty) {
+                   continue;
+               }
+               
+               let nextCellKey = i - 1;
+               while (nextCellKey < this.size) {
+
+                   let nextCell = this.field[nextCellKey][k];
+                   if (!nextCell.isEmpty || this.isFirstKey(nextCellKey)) {
+                       if((nextCell.isEmpty && this.isFirstKey(nextCellKey))
+                           || nextCell.isSameTo(currentCell)) {
+                           this.field[nextCellKey][k].merge(currentCell);
+                           hasMoved = true;
+                       } else if (!nextCell.isEmpty && nextCellKey + 1 != i) {
+                           this.field[nextCellKey + 1][k].merge(currentCell);
+                           hasMoved = true;
+                       }
+
+                       break;
+                   }
+                    nextCellKey--;
+                    nextCell = this.field[nextCellKey][k];
                }
             }
         }
@@ -171,3 +208,4 @@ class Game {
         }
     }
 }
+
