@@ -31,8 +31,23 @@ class Game {
             }
         }
 
-        // this.FieldElement.onkeyup = function(e) {
-        // };
+         window.onkeyup = function(e) {
+             switch (e.keyCode) {
+                 case 38:
+                    this.moveUp();
+                    break;
+                case 40:
+                    this.moveDown();
+                    break;
+                case 37:
+                    this.moveLeft();
+                    break;
+                case 39:
+                    this.moveRight();
+                    break;
+             }
+         }.bind(this);
+
 
         console.log(this.field);
     }
@@ -172,7 +187,7 @@ class Game {
     }
 
 
-    moveTop() {
+    moveUp() {
         let hasMoved = false;
         for (let k = 0; k < this.size; k++) {
             for (let i = 1; i < this.size; i++) {

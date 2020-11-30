@@ -13,7 +13,7 @@ class Cell {
             this.spawn();
         }
 
-        this.element.onclick = this.merge.bind(this);
+        //this.element.onclick = this.merge.bind(this);
     }
 
     get value() {
