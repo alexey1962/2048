@@ -12,8 +12,6 @@ class Cell {
         if(Math.random() > 0.8) {
             this.spawn();
         }
-
-        //this.element.onclick = this.merge.bind(this);
     }
 
     get value() {
@@ -24,6 +22,7 @@ class Cell {
         this._value = value;
 
         this.element.innerHTML = value == 0 ? '' : value;
+        this.element.setAttribute('data-wow', value);
     }
 
     clear() {

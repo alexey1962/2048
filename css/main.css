@@ -44,4 +44,12 @@ html, body {
             border: 2px solid green;
             border-radius: 2vmin;
             font-size: 10vmin;
+            background-image: none;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+
+        .game .field .cell[data-wow="2"] {
+            background-image: url(../img/units/Orcs.PNG);
         }
