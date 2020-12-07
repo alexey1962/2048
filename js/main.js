@@ -13,4 +13,4 @@ let getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var game = new Game(document.body, 4)
+var game = new Game(document.body, 4);
