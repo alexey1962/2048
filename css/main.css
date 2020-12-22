@@ -53,9 +53,19 @@ html, body {
             color: transparent;
         }
 
+          @keyframes hide{
+            from {opacity: 1;}
+            to {opacity: 0;}
+        } 
+
         .game .field .cell.animate {
             position: absolute;
-            opacity: 0.5;
+            margin: 0 !important;
+            transition: left 0.5s, top 0.5s;
+             animation-name: hide;
+            animation-duration: 0.5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards; 
         }
 
 
